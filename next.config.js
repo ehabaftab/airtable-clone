@@ -15,6 +15,12 @@ const config = {
         port: '',
         pathname: '/**', // Adjust as needed to match your image paths
       },
+      {
+        protocol: 'https',
+        hostname: 'encrypted-tbn0.gstatic.com',
+        port: '',
+        pathname: '/**', // Adjust as needed to match your image paths
+      },
     ],
   },
   /**

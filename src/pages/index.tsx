@@ -1,79 +1,67 @@
 import { SignIn, SignInButton, SignOutButton, useUser } from "@clerk/nextjs";
+import { useState } from "react";
 import Head from "next/head";
-import Link from "next/link";
 import Image from "next/image";
 
 import { api } from "~/utils/api";
-import { LoadingPage, LoadingSpinner } from "~/components/loading";
+import { LoadingPage } from "~/components/loading";
 
-// const CreateBaseWizard = () => {
-//   const { user } = useUser();
-
-//   if (!user) {
-//     return null;
-//   }
-
-//   return (
-//     <div className="flex w-auto gap-3">
-//       <Image
-//         src={user.imageUrl}
-//         className="h-9 w-9 rounded-full"
-//         alt={`@${user.username}'s profile picture`}
-//         width={56}
-//         height={56}
-//       />
-//       <input
-//         placeholder="Create a new base"
-//         className="grow bg-transparent text-slate-700"
-//       />
-//     </div>
-//   );
-// };
-
-const Header = () => {
+const Header = ({ toggleSidebar }: SidebarProps) => {
   const { user } = useUser();
 
   return (
-    <header className="flex items-center justify-between bg-white px-4 py-2 shadow-md">
-      {/* Left Section */}
-      <div className="flex items-center gap-4">
-        {/* Logo */}
-        <div className="flex items-center gap-1">
-          <Image
-            src="/path-to-your-logo.png" // Replace with your logo path
-            alt="Logo"
-            width={32}
-            height={32}
-          />
-          <span className="text-xl font-semibold text-gray-700">Airtable</span>
-        </div>
-
-        {/* Search Bar */}
-        <div className="flex items-center rounded-full bg-gray-100 px-3 py-1">
-          <input
-            type="text"
-            placeholder="Search..."
-            className="bg-transparent text-gray-600 outline-none"
-          />
-          <span className="ml-2 text-sm text-gray-400">⌘ K</span>
+    <header className="flex h-6 items-center justify-between">
+      <div className="flex items-center gap-3">
+        <button
+          aria-label="Toggle Sidebar"
+          // className="p-1"
+          onClick={toggleSidebar}
+        >
+          <span className="material-icons p-1 text-gray-400 hover:font-bold">
+            menu
+          </span>
+        </button>
+        <div aria-label="icon-title" className="flex w-6 items-center">
+          <Image src="/logos/airtable.svg" alt="Logo" width={48} height={48} />
+          <span className="font-mono text-xl text-gray-700">Airtable</span>
         </div>
       </div>
 
+      <div
+        aria-label="Search Bar"
+        className="flex items-center rounded-full p-1.5 outline outline-1 outline-gray-300"
+      >
+        <div className="flex">
+          <span className="material-icons w-4 font-bold text-gray-600">
+            search
+          </span>
+          <input
+            type="text"
+            placeholder="Search..."
+            className="ml-2 bg-transparent text-xs text-gray-800 placeholder-gray-600"
+          />
+        </div>
+        <span className="mr-3 text-xs text-gray-500">⌘ K</span>
+      </div>
+
       {/* Right Section */}
-      <div className="flex items-center gap-4">
-        {/* Icons */}
-        <button className="rounded-full p-2 hover:bg-gray-100">
-          <span className="material-icons">help_outline</span>
+      <div className="flex items-center">
+        <button className="p-2">
+          <span className="material-icons rounded-full text-sm text-gray-400 hover:bg-gray-300">
+            help_outline
+          </span>
         </button>
-        <button className="rounded-full p-2 hover:bg-gray-100">
-          <span className="material-icons">notifications_none</span>
+        <button className="rounded-full p-3 hover:bg-gray-100">
+          <span className="material-icons text-gray-400">
+            notifications_none
+          </span>
         </button>
 
         {/* User Profile */}
         {user && (
           <Image
             src={user.imageUrl}
-            className="h-9 w-9 rounded-full"
+            className="h-7 w-7 rounded-full"
             alt={`@${user.username}'s profile picture`}
             width={36}
             height={36}
@@ -84,16 +72,55 @@ const Header = () => {
   );
 };
 
-export default function Home() {
-  const user = useUser();
-  const { data, isLoading } = api.base.getAll.useQuery();
+const SidebarBases = () => {
+  const { data, isLoading: basesLoading } = api.base.getAll.useQuery();
 
-  if (isLoading || true) {
+  if (basesLoading) {
     return <LoadingPage />;
   }
 
-  if (!data) {
-    return <div>Error loading data</div>;
+  if (!data) return <div>Something went wrong</div>;
+
+  return (
+    <div className="flex flex-col">
+      {data?.map((base) => (
+        <div key={base.id} className="border-b border-slate-700 p-8">
+          {base.name}
+        </div>
+      ))}
+    </div>
+  );
+};
+
+interface SidebarProps {
+  isCollapsed: boolean;
+  toggleSidebar: () => void;
+}
+
+const Sidebar = ({ isCollapsed }: SidebarProps) => (
+  <div
+    className={`flex h-screen flex-col border-r border-gray-300 bg-gray-100 ${
+      isCollapsed ? "w-16" : "w-64"
+    } transition-all duration-300`}
+  >
+    <div className={`flex flex-col p-2 ${isCollapsed ? "hidden" : ""}`}>
+      <span className="p-2 hover:bg-gray-200">Home</span>
+      <span className="p-2 hover:bg-gray-200">My Bases</span>
+      <span className="p-2 hover:bg-gray-200">Settings</span>
+    </div>
+  </div>
+);
+
+export default function Home() {
+  const { isLoaded: userLoaded, isSignedIn } = useUser();
+  const [isCollapsed, setIsCollapsed] = useState(false);
+
+  const toggleSidebar = () => setIsCollapsed(!isCollapsed);
+  // start fetching to use cached data
+  api.base.getAll.useQuery();
+
+  if (!userLoaded) {
+    return <div />;
   }
 
   return (
@@ -107,29 +134,30 @@ export default function Home() {
           rel="stylesheet"
         />
       </Head>
-      <main className="flex h-screen justify-end">
-        <div className="w-full border-x border-slate-700 md:max-w-3xl">
-          <div className="flex border-b border-slate-700 p-4">
-            {!user.isSignedIn && (
+      <main>
+        <div>
+          <div className="border-b border-gray-300 p-4">
+            {!isSignedIn && (
               <div className="flex justify-center">
                 <SignInButton />{" "}
               </div>
             )}
-            {user.isSignedIn && Header()}
-            {/* {user.isSignedIn && (
-              <div className="ml-auto flex justify-end p-4">
-                <SignOutButton />
+            {isSignedIn && (
+              <div>
+                <Header
+                  isCollapsed={isCollapsed}
+                  toggleSidebar={toggleSidebar}
+                />
               </div>
-            )} */}
-          </div>
-          <div className="flex flex-col">
-            {data?.map((base) => (
-              <div key={base.id} className="border-b border-slate-700 p-8">
-                {base.name}
-              </div>
-            ))}
+            )}
           </div>
         </div>
+        <div className="flex">
+          <Sidebar isCollapsed={isCollapsed} toggleSidebar={toggleSidebar} />
+        </div>
+        {/* <div className="justify-start">
+          <SidebarBases />
+        </div> */}
       </main>
     </>
   );
