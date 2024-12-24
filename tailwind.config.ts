@@ -12,6 +12,10 @@ export default {
         sans: ["var(--font-geist-sans)", ...fontFamily.sans],
         mono: ["var(--font-roboto-mono)"],
       },
+      fontSize: {
+        xxs: "0.65rem",
+        sm: "0.8rem",
+      },
     },
   },
   plugins: [],

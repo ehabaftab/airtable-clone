@@ -13,6 +13,7 @@ datasource db {
 model base {
     id        Int      @id @default(autoincrement())
     name      String
+    type      String
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 
