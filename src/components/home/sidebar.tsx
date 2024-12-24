@@ -32,28 +32,31 @@ export const Sidebar = ({ isCollapsed }: SidebarProps) => {
           </span>
         </div>
         {!isHomeCollapsed && (
-          <div className="flex items-center gap-1 pl-4">
-            <span
-              className="material-icons items-center pl-1.5 text-gray-400 outline outline-1 outline-gray-300"
-              style={{
-                fontSize: "1.25rem",
-                width: "3rem",
-                height: "2rem",
-                justifyContent: "center",
-                alignContent: "center",
-              }}
-            >
-              star_outline
-            </span>
-            <span className="text-xxs flex p-2 font-extralight text-gray-500 hover:bg-gray-200">
-              Your starred bases, interfaces, and workspaces will appear here
-            </span>
+          <div className="ml-3 mr-3">
+            <div className="mt-2 flex w-full items-center gap-1">
+              {/* Add collapsible content for All workspaces here */}
+              <span
+                className="material-icons ml-2.5 items-center pl-1 text-gray-400 outline outline-1 outline-gray-300"
+                style={{
+                  fontSize: "1.1rem",
+                  width: "2.15rem",
+                  height: "1.7rem",
+                  justifyContent: "center",
+                  alignContent: "center",
+                }}
+              >
+                star_outline
+              </span>
+              <span className="text-xxs flex p-2 font-extralight text-gray-500">
+                Your starred bases, interfaces, and workspaces will appear here
+              </span>
+            </div>
           </div>
         )}
-        <div className="mt-4 flex h-8 cursor-pointer items-center justify-between p-2 pl-4 font-light hover:bg-gray-200">
+        <div className="mt-4 flex h-8 items-center justify-between p-2 pl-4 font-light hover:cursor-pointer hover:bg-gray-200">
           <span>All workspaces</span>
           <span
-            className="material-icons pl-1 hover:bg-gray-300"
+            className="material-icons pl-1 hover:cursor-pointer hover:bg-gray-300"
             onClick={() => setIsWorkspacesCollapsed(!isWorkspacesCollapsed)}
             style={{
               fontSize: "1rem",
@@ -66,23 +69,25 @@ export const Sidebar = ({ isCollapsed }: SidebarProps) => {
           </span>
         </div>
         {!isWorkspacesCollapsed && (
-          <div className="flex items-center gap-1 pl-4">
-            {/* Add collapsible content for All workspaces here */}
-            <span
-              className="material-icons items-center pl-1.5 text-gray-400 outline outline-1 outline-gray-300"
-              style={{
-                fontSize: "1.25rem",
-                width: "2rem",
-                height: "2rem",
-                justifyContent: "center",
-                alignContent: "center",
-              }}
-            >
-              groups_outlined
-            </span>
-            <span className="flex p-2 text-xs font-light text-gray-800 hover:bg-gray-200">
-              My First Workspace
-            </span>
+          <div className="ml-3 mr-3">
+            <button className="mt-2 flex w-full items-center gap-1 hover:bg-gray-200">
+              {/* Add collapsible content for All workspaces here */}
+              <span
+                className="material-icons ml-2.5 items-center bg-gray-200 pl-0.5 text-gray-400"
+                style={{
+                  fontSize: "1.25rem",
+                  width: "1.6rem",
+                  height: "1.5rem",
+                  justifyContent: "center",
+                  alignContent: "center",
+                }}
+              >
+                groups_outlined
+              </span>
+              <span className="flex p-2 text-xs font-light text-gray-800">
+                My First Workspace
+              </span>
+            </button>
           </div>
         )}
       </div>
