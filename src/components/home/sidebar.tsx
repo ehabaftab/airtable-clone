@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import CreateBaseModal from "./createBaseModal";
 
 export interface SidebarProps {
   isCollapsed: boolean;
@@ -6,6 +7,11 @@ export interface SidebarProps {
 }
 
 export const Sidebar = ({ isCollapsed }: SidebarProps) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
+
   const [isHomeCollapsed, setIsHomeCollapsed] = useState(true);
   const [isWorkspacesCollapsed, setIsWorkspacesCollapsed] = useState(true);
 
@@ -47,7 +53,7 @@ export const Sidebar = ({ isCollapsed }: SidebarProps) => {
               >
                 star_outline
               </span>
-              <span className="text-xxs flex p-2 font-extralight text-gray-500">
+              <span className="flex p-2 text-xxs font-extralight text-gray-500">
                 Your starred bases, interfaces, and workspaces will appear here
               </span>
             </div>
@@ -144,7 +150,10 @@ export const Sidebar = ({ isCollapsed }: SidebarProps) => {
             </span>
           </button>
 
-          <button className="mb-2 ml-4 mr-4 flex h-8 items-center justify-center rounded-md bg-blue-500 hover:cursor-pointer">
+          <button
+            onClick={openModal}
+            className="open-modal-button mb-2 ml-4 mr-4 flex h-8 items-center justify-center rounded-md bg-blue-500 hover:cursor-pointer"
+          >
             <span
               className="material-icons w-5 text-white"
               style={{
@@ -157,6 +166,7 @@ export const Sidebar = ({ isCollapsed }: SidebarProps) => {
               Create
             </span>
           </button>
+          <CreateBaseModal isOpen={isModalOpen} onClose={closeModal} />
         </div>
       </div>
     </div>

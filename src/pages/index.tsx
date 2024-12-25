@@ -8,6 +8,7 @@ import { api } from "~/utils/api";
 import { LoadingPage } from "~/components/loading";
 import { Sidebar } from "~/components/home/sidebar";
 import { Header } from "~/components/home/header";
+import Link from "next/link";
 
 export interface SidebarProps {
   isCollapsed: boolean;
@@ -26,7 +27,8 @@ const AllBases = () => {
   return data && data.length > 0 ? (
     <div className={`mt-4 flex flex-wrap gap-4 p-2`}>
       {data.map((base) => (
-        <button
+        <Link
+          href={`/base/${base.id}`}
           key={base.id}
           className="flex h-24 w-80 items-center rounded-md bg-gray-100 p-3 outline outline-1 outline-gray-300"
         >
@@ -43,7 +45,7 @@ const AllBases = () => {
               {base.type}
             </div>
           </div>
-        </button>
+        </Link>
       ))}
     </div>
   ) : (
@@ -144,10 +146,6 @@ export default function Home() {
             <Body />
           </div>
         </div>
-
-        {/* <div className="absolute bg-red-400">
-          <Body />
-        </div> */}
       </main>
     </>
   );

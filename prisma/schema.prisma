@@ -14,6 +14,7 @@ model base {
     id        Int      @id @default(autoincrement())
     name      String
     type      String
+    authorId  String
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 
