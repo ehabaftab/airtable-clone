@@ -29,17 +29,26 @@ const CreateBaseModal: React.FC<CreateBaseModalProps> = ({
         className="modal-content"
         onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside the modal
       >
-        <div className="flex">
-          <span className="text-gray-600">Create Base</span>
-          <input
-            type="text"
-            placeholder="Base name..."
-            className="bg-transparent pl-1 text-xs text-gray-800 placeholder-gray-500"
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            disabled={isCreating}
-          />
-          <button onClick={() => mutate({ name: input })}>Done</button>
+        <div className="flex items-center justify-between align-middle">
+          <div className="flex items-center">
+            <span className="text-gray-600">Create Base:</span>
+            <div
+              aria-label="Search Bar"
+              className="ml-3 flex h-8 items-center rounded-full p-1.5 outline outline-1 outline-gray-300"
+            >
+              <input
+                type="text"
+                placeholder="Base name..."
+                className="bg-transparent pl-1 text-xs text-gray-800 placeholder-gray-500"
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                disabled={isCreating}
+              />
+            </div>
+          </div>
+          <button className="mr-4" onClick={() => mutate({ name: input })}>
+            Done
+          </button>
         </div>
         <button className="modal-close" onClick={onClose}>
           &times;

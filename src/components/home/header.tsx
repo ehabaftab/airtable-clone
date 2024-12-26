@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useUser } from "@clerk/clerk-react";
 import Image from "next/image";
 
@@ -10,7 +10,7 @@ export interface SidebarProps {
 export const Header = ({ toggleSidebar }: SidebarProps) => {
   const { user } = useUser() as {
     user: { imageUrl: string; username: string };
-  }; // Ensure proper typing
+  };
 
   return (
     <header className="flex items-center justify-between">
@@ -22,13 +22,13 @@ export const Header = ({ toggleSidebar }: SidebarProps) => {
         </button>
         <div aria-label="icon-title" className="flex w-6 items-center">
           <Image src="/logos/airtable.svg" alt="Logo" width={48} height={48} />
-          <span className="pl-1 font-mono text-xl text-gray-700">Airtable</span>
+          <span className="pl-1 font-mono text-lg text-gray-700">Airtable</span>
         </div>
       </div>
 
       <div
         aria-label="Search Bar"
-        className="flex h-8 items-center rounded-full p-1.5 outline outline-1 outline-gray-300"
+        className="flex h-8 w-72 items-center rounded-full p-1.5 outline outline-1 outline-gray-300"
       >
         <div className="flex">
           <span className="material-icons text-gray-600">search</span>
@@ -78,13 +78,15 @@ export const Header = ({ toggleSidebar }: SidebarProps) => {
 
         {/* User Profile */}
         {user && (
-          <Image
-            src={user.imageUrl}
-            className="h-7 w-7 rounded-full"
-            alt={`@${user.username}'s profile picture`}
-            width={36}
-            height={36}
-          />
+          <button className="rounded-full">
+            <Image
+              src={user.imageUrl}
+              className="h-7 w-7 rounded-full"
+              alt={`@${user.username}'s profile picture`}
+              width={36}
+              height={36}
+            />
+          </button>
         )}
       </div>
     </header>

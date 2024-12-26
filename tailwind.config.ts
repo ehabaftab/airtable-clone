@@ -14,7 +14,12 @@ export default {
       },
       fontSize: {
         xxs: "0.65rem",
-        sm: "0.8rem",
+        // sm: "0.8rem",
+        // "text-base": "0.875rem",
+      },
+      colors: {
+        maroon: "#893c50",
+        "maroon-dark": "#773646",
       },
     },
   },

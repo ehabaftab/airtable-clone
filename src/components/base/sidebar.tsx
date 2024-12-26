@@ -1,7 +1,5 @@
 import React, { useState } from "react";
-import CreateBaseModal from "./createBaseModal";
 import { api } from "~/utils/api";
-import { useRouter } from "next/router";
 
 export interface SidebarProps {
   isCollapsed: boolean;
@@ -17,12 +15,9 @@ export const Sidebar = ({ isCollapsed }: SidebarProps) => {
 
   const [isHomeCollapsed, setIsHomeCollapsed] = useState(true);
   const [isWorkspacesCollapsed, setIsWorkspacesCollapsed] = useState(true);
-  const router = useRouter();
-
-  const { mutate } = api.base.create.useMutation({
+  const { mutate, status } = api.base.create.useMutation({
     onSuccess: (data) => {
-      const baseName = data.name.replace(/\s+/g, "-");
-      void router.push(`/base/${baseName}/${data.id}`);
+      window.location.href = `/base/${data.id}`;
     },
   });
 
@@ -34,7 +29,7 @@ export const Sidebar = ({ isCollapsed }: SidebarProps) => {
     >
       <div className={` ${isCollapsed ? "hidden" : ""}`}>
         <div className="mt-4 flex h-8 cursor-pointer items-center justify-between p-2 pl-4 font-light hover:bg-gray-200">
-          <span className="text-sm">Home</span>
+          <span>Home</span>
           <span
             className="material-icons pl-1 hover:bg-gray-300"
             onClick={() => setIsHomeCollapsed(!isHomeCollapsed)}
@@ -71,7 +66,7 @@ export const Sidebar = ({ isCollapsed }: SidebarProps) => {
           </div>
         )}
         <div className="mt-4 flex h-8 items-center justify-between p-2 pl-4 font-light hover:cursor-pointer hover:bg-gray-200">
-          <span className="text-sm">All workspaces</span>
+          <span>All workspaces</span>
           <span
             className="material-icons pl-1 hover:cursor-pointer hover:bg-gray-300"
             onClick={() => setIsWorkspacesCollapsed(!isWorkspacesCollapsed)}
@@ -111,7 +106,7 @@ export const Sidebar = ({ isCollapsed }: SidebarProps) => {
 
       {/* SidebarBottom */}
       <div
-        className={`absolute bottom-14 flex w-full ${isCollapsed ? "hidden" : ""}`}
+        className={`absolute bottom-24 flex w-full ${isCollapsed ? "hidden" : ""}`}
       >
         <div className="absolute bottom-0 flex w-full flex-col pb-4">
           <>
@@ -129,7 +124,7 @@ export const Sidebar = ({ isCollapsed }: SidebarProps) => {
             >
               import_contacts_outline
             </span>
-            <span className="r-2 text-xs font-light text-gray-800">
+            <span className="r-2 text-sm font-light text-gray-800">
               Templates and apps
             </span>
           </button>
@@ -142,7 +137,7 @@ export const Sidebar = ({ isCollapsed }: SidebarProps) => {
             >
               local_mall_outline
             </span>
-            <span className="r-2 text-xs font-extralight text-gray-800">
+            <span className="r-2 text-sm font-extralight text-gray-800">
               Marketplace
             </span>
           </button>
@@ -156,7 +151,7 @@ export const Sidebar = ({ isCollapsed }: SidebarProps) => {
             >
               file_upload_outline
             </span>
-            <span className="r-2 text-xs font-extralight text-gray-800">
+            <span className="r-2 text-sm font-extralight text-gray-800">
               Import
             </span>
           </button>
@@ -173,7 +168,7 @@ export const Sidebar = ({ isCollapsed }: SidebarProps) => {
             >
               add
             </span>
-            <span className="r-2 text-xs font-extralight text-white">
+            <span className="r-2 text-sm font-extralight text-white">
               Create
             </span>
           </button>
