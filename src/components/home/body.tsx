@@ -15,7 +15,7 @@ const AllBases = () => {
 
   if (!data) return <div>Something went wrong</div>;
   return data && data.length > 0 ? (
-    <div className={`ml-4 mt-2 flex flex-wrap gap-4`}>
+    <div className={`ml-4 mr-10 mt-2 flex flex-wrap gap-4`}>
       {data.map((base) => {
         const baseName = base.name.replace(/\s+/g, "-");
         const id = base.id;
@@ -23,14 +23,15 @@ const AllBases = () => {
           <Link
             href={`/base/${baseName}/${id}`}
             key={base.id}
-            className="flex h-24 w-80 items-center rounded-md bg-white p-3 outline outline-1 outline-gray-300"
+            className="flex h-24 min-w-[calc(50%-1rem)] max-w-[calc(50%-1rem)] flex-shrink-0 flex-grow items-center rounded-md bg-white p-3 outline outline-1 outline-gray-300"
           >
             <Avatar
               name={`${base.name}`}
-              size="50"
+              size="60"
               textSizeRatio={2.75}
               round={"25%"}
               fgColor="#E5E7EB"
+              initials={(name) => name.slice(0, 2)}
             />
             <div className="ml-3 flex flex-col">
               <div className="pt-2 text-xs">{base.name}</div>
@@ -49,10 +50,13 @@ const AllBases = () => {
 
 export const Body = () => {
   return (
-    <div className="flex flex-col">
+    <div aria-label="Main Body" className="flex flex-col">
       <div className="ml-3 mt-6 text-2xl font-medium">Home</div>
-      <div className={`ml-3 mt-6 flex flex-wrap gap-4`}>
-        <div className="flex h-24 w-80 flex-col rounded-md bg-white p-3 outline outline-1 outline-gray-300">
+      <div
+        aria-label="Placeholders"
+        className={`ml-3 mr-10 mt-6 flex flex-wrap gap-4`}
+      >
+        <div className="flex h-24 min-w-[200px] max-w-[calc(50%-1rem)] flex-shrink-0 flex-grow flex-col rounded-md bg-white p-3 outline outline-1 outline-gray-300">
           <div className="flex items-center">
             <PiStarFourLight className="text-pink-600" />
             <div className="ml-2 text-sm font-medium"> Start with AI</div>
@@ -62,7 +66,7 @@ export const Body = () => {
           </div>
         </div>
 
-        <div className="flex h-24 w-80 flex-col rounded-md bg-white p-3 outline outline-1 outline-gray-300">
+        <div className="flex h-24 min-w-[200px] max-w-[calc(50%-1rem)] flex-shrink-0 flex-grow flex-col rounded-md bg-white p-3 outline outline-1 outline-gray-300">
           <div className="flex items-center">
             <PiGridFour className="text-lg text-purple-700" />
             <div className="ml-1 text-sm font-medium">Start with templates</div>
@@ -72,7 +76,7 @@ export const Body = () => {
           </div>
         </div>
 
-        <div className="flex h-24 w-80 flex-col rounded-md bg-white p-3 outline outline-1 outline-gray-300">
+        <div className="flex h-24 min-w-[200px] max-w-[calc(50%-1rem)] flex-shrink-0 flex-grow flex-col rounded-md bg-white p-3 outline outline-1 outline-gray-300">
           <div className="flex items-center">
             <GoArrowUp className="text-lg text-green-700" />
             <div className="ml-1 text-sm font-medium">Quickly Upload</div>
@@ -82,7 +86,7 @@ export const Body = () => {
           </div>
         </div>
 
-        <div className="flex h-24 w-80 flex-col rounded-md bg-white p-3 outline outline-1 outline-gray-300">
+        <div className="flex h-24 min-w-[200px] max-w-[calc(50%-1rem)] flex-shrink-0 flex-grow flex-col rounded-md bg-white p-3 outline outline-1 outline-gray-300">
           <div className="flex items-center">
             <PiTable className="text-lg text-blue-800" />
             <div className="ml-1 text-sm font-medium">Start from scratch</div>
@@ -103,7 +107,7 @@ export const Body = () => {
             <GoChevronDown />
           </button>
         </div>
-        <div className="mr-10 mt-1 items-center">
+        <div className="mr-14 mt-1 items-center">
           <button className="mr-2">
             <AiOutlineMenu className="h-6" />
           </button>

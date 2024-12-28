@@ -71,7 +71,7 @@ export const Sidebar = ({ isCollapsed }: SidebarProps) => {
         <div className="mt-3 flex h-8 items-center justify-between pl-4 font-light hover:cursor-pointer hover:bg-gray-100">
           <span className="ml-1 text-sm">All workspaces</span>
           <div className="mr-3 flex items-center">
-            <VscAdd className="mr-2 text-xs" />
+            <VscAdd className="mr-2 text-sm" />
             <span
               className="material-icons text-gray-500 hover:cursor-pointer hover:bg-gray-300"
               onClick={() => setIsWorkspacesCollapsed(!isWorkspacesCollapsed)}
