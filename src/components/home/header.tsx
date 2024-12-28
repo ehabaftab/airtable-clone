@@ -1,5 +1,9 @@
 import React from "react";
 import { useUser } from "@clerk/clerk-react";
+import { CiSearch } from "react-icons/ci";
+import { IoHelpCircleOutline } from "react-icons/io5";
+import { IoNotificationsOutline } from "react-icons/io5";
+
 import Image from "next/image";
 
 export interface SidebarProps {
@@ -16,64 +20,44 @@ export const Header = ({ toggleSidebar }: SidebarProps) => {
     <header className="flex items-center justify-between">
       <div className="flex items-center gap-3">
         <button aria-label="Toggle Sidebar" onClick={toggleSidebar}>
-          <span className="material-icons p-1 text-gray-400 hover:font-bold">
+          <span
+            className="material-icons p-1 text-gray-400 hover:font-bold"
+            style={{
+              fontSize: "1.25rem",
+            }}
+          >
             menu
           </span>
         </button>
         <div aria-label="icon-title" className="flex w-6 items-center">
           <Image src="/logos/airtable.svg" alt="Logo" width={48} height={48} />
-          <span className="pl-1 font-mono text-lg text-gray-700">Airtable</span>
+          <span className="pl-1 text-lg font-medium text-gray-700">
+            Airtable
+          </span>
         </div>
       </div>
 
       <div
         aria-label="Search Bar"
-        className="flex h-8 w-72 items-center rounded-full p-1.5 outline outline-1 outline-gray-300"
+        className="flex h-7 w-72 items-center rounded-full p-1.5 outline outline-1 outline-gray-300"
       >
         <div className="flex">
-          <span className="material-icons text-gray-600">search</span>
+          <CiSearch className="ml-2" />
           <input
             type="text"
             placeholder="Search..."
-            className="bg-transparent pl-1 text-xs text-gray-800 placeholder-gray-500"
+            className="bg-transparent pl-1 text-xs text-gray-800 placeholder-gray-400"
           />
         </div>
-        <span className="pl-20 pr-3 text-xs text-gray-400">⌘ K</span>
+        <span className="ml-3 pl-20 text-xs text-gray-400">⌘ K</span>
       </div>
 
       <div className="flex items-center" aria-label="Right-Section">
-        <button
-          className="x mr-6 rounded-full text-gray-600 hover:bg-gray-300"
-          style={{
-            fontSize: "1rem",
-          }}
-        >
-          <span
-            className="material-icons pt-1"
-            style={{
-              fontSize: "1rem",
-            }}
-          >
-            help_outline
-          </span>
+        <button className="mr-2 h-6 w-10 rounded-full pl-3 text-gray-600 hover:bg-gray-200">
+          <IoHelpCircleOutline className="text-base" />
         </button>
-        <button
-          className="x mr-5 rounded-full text-gray-600 outline outline-1 outline-gray-200 hover:bg-gray-300"
-          style={{
-            width: "1.7rem",
-            height: "1.7rem",
-            justifyContent: "center",
-            alignContent: "center",
-          }}
-        >
-          <span
-            className="material-icons pt-1"
-            style={{
-              fontSize: "1.25rem",
-            }}
-          >
-            notifications_none
-          </span>
+        <button className="x mr-5 h-5 w-5 rounded-full pl-1 text-gray-600 outline outline-1 outline-gray-200 hover:bg-gray-300">
+          <IoNotificationsOutline className="text-xs" />
         </button>
 
         {/* User Profile */}

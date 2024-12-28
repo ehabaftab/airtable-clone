@@ -31,13 +31,13 @@ export default function BasePage() {
         />
       </Head>
       <main className="flex">
-        <div className="flex flex-row">
+        <div className="flex">
           <div className="fixed w-full border-b border-gray-300 bg-gray-100">
             <Header id={numericId} user={user} />
           </div>
         </div>
-        <div className="flex flex-row">
-          <div className="fixed mt-24 bg-gray-100">
+        <div className="flex">
+          <div className="fixed bg-white" style={{ marginTop: "8.25rem" }}>
             <Sidebar isCollapsed={isCollapsed} toggleSidebar={toggleSidebar} />
           </div>
           <div

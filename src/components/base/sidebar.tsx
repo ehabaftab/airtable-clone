@@ -1,5 +1,9 @@
 import React, { useState } from "react";
 import { api } from "~/utils/api";
+import { CiSearch } from "react-icons/ci";
+import { IoSettingsOutline, IoCheckmark } from "react-icons/io5";
+import { PiTable } from "react-icons/pi";
+import { GoChevronUp } from "react-icons/go";
 
 export interface SidebarProps {
   isCollapsed: boolean;
@@ -23,154 +27,56 @@ export const Sidebar = ({ isCollapsed }: SidebarProps) => {
 
   return (
     <div
-      className={`flex h-screen flex-col border-r border-gray-300 p-0 ${
+      className={`flex h-screen flex-col border-r border-t border-gray-300 p-0 ${
         isCollapsed ? "w-16" : "w-72"
       } overflow-y-auto transition-all duration-300`}
     >
-      <div className={` ${isCollapsed ? "hidden" : ""}`}>
-        <div className="mt-4 flex h-8 cursor-pointer items-center justify-between p-2 pl-4 font-light hover:bg-gray-200">
-          <span>Home</span>
-          <span
-            className="material-icons pl-1 hover:bg-gray-300"
-            onClick={() => setIsHomeCollapsed(!isHomeCollapsed)}
-            style={{
-              fontSize: "1rem",
-              width: "1.5rem",
-              height: "1.5rem",
-              alignContent: "center",
-            }}
-          >
-            {isHomeCollapsed ? "chevron_right" : "expand_more"}
-          </span>
-        </div>
-        {!isHomeCollapsed && (
-          <div className="ml-3 mr-3">
-            <div className="mt-2 flex w-full items-center gap-1">
-              {/* Add collapsible content for All workspaces here */}
-              <span
-                className="material-icons ml-2.5 items-center pl-1 text-gray-400 outline outline-1 outline-gray-300"
-                style={{
-                  fontSize: "1.1rem",
-                  width: "2.15rem",
-                  height: "1.7rem",
-                  justifyContent: "center",
-                  alignContent: "center",
-                }}
-              >
-                star_outline
-              </span>
-              <span className="flex p-2 text-xxs font-extralight text-gray-500">
-                Your starred bases, interfaces, and workspaces will appear here
-              </span>
+      <div aria-label="Views" className="flex flex-col">
+        <div
+          aria-label="Search Bar"
+          className="ml-4 mr-4 mt-4 flex h-8 items-center border-b font-light"
+        >
+          <div className="ml-2 flex w-full justify-between">
+            <div className="flex">
+              <CiSearch className="ml-0" />
+              <input
+                type="text"
+                placeholder="Find a view"
+                className="ml-1 bg-transparent pl-1 text-sm text-gray-800 placeholder-gray-400 focus:outline-none"
+                onFocus={(e) =>
+                  e.target.parentElement?.parentElement?.parentElement?.classList.add(
+                    "border-blue-500",
+                  )
+                }
+                onBlur={(e) =>
+                  e.target.parentElement?.parentElement?.parentElement?.classList.remove(
+                    "border-blue-500",
+                  )
+                }
+              />
             </div>
+            <IoSettingsOutline className="mr-4 text-gray-600" />
           </div>
-        )}
-        <div className="mt-4 flex h-8 items-center justify-between p-2 pl-4 font-light hover:cursor-pointer hover:bg-gray-200">
-          <span>All workspaces</span>
-          <span
-            className="material-icons pl-1 hover:cursor-pointer hover:bg-gray-300"
-            onClick={() => setIsWorkspacesCollapsed(!isWorkspacesCollapsed)}
-            style={{
-              fontSize: "1rem",
-              width: "1.5rem",
-              height: "1.5rem",
-              alignContent: "center",
-            }}
-          >
-            {isWorkspacesCollapsed ? "chevron_right" : "expand_more"}
-          </span>
         </div>
-        {!isWorkspacesCollapsed && (
-          <div className="ml-3 mr-3">
-            <button className="mt-2 flex w-full items-center gap-1 hover:bg-gray-200">
-              {/* Add collapsible content for All workspaces here */}
-              <span
-                className="material-icons ml-2.5 items-center bg-gray-200 pl-0.5 text-gray-400"
-                style={{
-                  fontSize: "1.25rem",
-                  width: "1.6rem",
-                  height: "1.5rem",
-                  justifyContent: "center",
-                  alignContent: "center",
-                }}
-              >
-                groups_outlined
-              </span>
-              <span className="flex p-2 text-xs font-light text-gray-800">
-                My First Workspace
-              </span>
-            </button>
+        <div className="ml-4 mr-4 mt-2 flex h-8 items-center justify-between bg-sky-100 font-light">
+          <div className="ml-1.5 flex items-center gap-1">
+            <PiTable className="text-lg text-blue-700" />
+            <span className="text-sm">Grid View</span>
           </div>
-        )}
+          <IoCheckmark className="mr-2 text-gray-600" />
+        </div>
+
+        <div className="mt-4 flex h-8 items-center justify-between p-2 pl-4 font-light hover:cursor-pointer hover:bg-gray-200"></div>
       </div>
 
       {/* SidebarBottom */}
       <div
-        className={`absolute bottom-24 flex w-full ${isCollapsed ? "hidden" : ""}`}
+        className={`absolute bottom-32 flex w-full ${isCollapsed ? "hidden" : ""}`}
       >
-        <div className="absolute bottom-0 flex w-full flex-col pb-4">
-          <>
-            <div
-              aria-label="horizontal-line"
-              className="mb-4 ml-5 mr-5 border-b"
-            ></div>
-          </>
-          <button className="mb-2 ml-4 mr-4 flex items-center pb-1 pl-1 hover:cursor-pointer hover:bg-gray-200">
-            <span
-              className="material-icons w-5 text-gray-600"
-              style={{
-                fontSize: "1rem",
-              }}
-            >
-              import_contacts_outline
-            </span>
-            <span className="r-2 text-sm font-light text-gray-800">
-              Templates and apps
-            </span>
-          </button>
-          <button className="mb-2 ml-4 mr-4 flex items-center pb-1 pl-1 hover:cursor-pointer hover:bg-gray-200">
-            <span
-              className="material-icons w-5 text-gray-600"
-              style={{
-                fontSize: "1rem",
-              }}
-            >
-              local_mall_outline
-            </span>
-            <span className="r-2 text-sm font-extralight text-gray-800">
-              Marketplace
-            </span>
-          </button>
-
-          <button className="mb-2 ml-4 mr-4 flex items-center pb-1 pl-1 hover:cursor-pointer hover:bg-gray-200">
-            <span
-              className="material-icons w-5 text-gray-600"
-              style={{
-                fontSize: "1rem",
-              }}
-            >
-              file_upload_outline
-            </span>
-            <span className="r-2 text-sm font-extralight text-gray-800">
-              Import
-            </span>
-          </button>
-
-          <button
-            onClick={() => mutate({ name: "Untitled Base" })}
-            className="open-modal-button mb-2 ml-4 mr-4 flex h-8 items-center justify-center rounded-md bg-blue-500 hover:cursor-pointer"
-          >
-            <span
-              className="material-icons w-5 text-white"
-              style={{
-                fontSize: "1rem",
-              }}
-            >
-              add
-            </span>
-            <span className="r-2 text-sm font-extralight text-white">
-              Create
-            </span>
+        <div className="mb-4 ml-4 mr-4 flex w-full flex-col border-t">
+          <button className="open-modal-button mt-2 flex h-8 items-center justify-between rounded-md hover:cursor-pointer">
+            <span className="ml-2 font-extralight text-black">Create...</span>
+            <GoChevronUp className="mr-3" />
           </button>
           {/* <CreateBaseModal isOpen={isModalOpen} onClose={closeModal} /> */}
         </div>
