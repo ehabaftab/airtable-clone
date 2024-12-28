@@ -17,8 +17,8 @@ export const Header = ({ toggleSidebar }: SidebarProps) => {
   };
 
   return (
-    <header className="flex items-center justify-between">
-      <div className="flex items-center gap-3">
+    <header className="flex h-14 items-center justify-between">
+      <div className="ml-3 flex gap-3">
         <button aria-label="Toggle Sidebar" onClick={toggleSidebar}>
           <span
             className="material-icons p-1 text-gray-400 hover:font-bold"
@@ -50,12 +50,12 @@ export const Header = ({ toggleSidebar }: SidebarProps) => {
         <span className="mr-2 pl-20 text-xs font-light text-gray-400">⌘ K</span>
       </button>
 
-      <div className="flex items-center" aria-label="Right-Section">
+      <div className="mr-4 flex items-center" aria-label="Right-Section">
         <button className="mr-2 h-6 w-10 rounded-full pl-3 text-gray-600 hover:bg-gray-200">
           <IoHelpCircleOutline className="text-base" />
         </button>
-        <button className="x mr-5 h-5 w-5 rounded-full pl-1 text-gray-600 outline outline-1 outline-gray-200 hover:bg-gray-300">
-          <IoNotificationsOutline className="text-xs" />
+        <button className="x mr-5 h-6 w-6 rounded-full pl-1 text-gray-600 outline outline-1 outline-gray-200 hover:bg-gray-300">
+          <IoNotificationsOutline className="" />
         </button>
 
         {/* User Profile */}

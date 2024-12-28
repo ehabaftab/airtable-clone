@@ -40,7 +40,7 @@ export default function Home() {
       </Head>
       <main className="flex">
         <div className="flex flex-row">
-          <div className="fixed h-12 w-full border-b border-gray-300 bg-white p-2">
+          <div className="fixed h-14 w-full border-b border-gray-300 bg-white">
             {!isSignedIn && (
               <div className="flex justify-center">
                 <SignInButton />{" "}
@@ -58,7 +58,7 @@ export default function Home() {
         </div>
 
         <div className="flex flex-row">
-          <div className="fixed mt-12 bg-white">
+          <div className="fixed mt-14 bg-white">
             <Sidebar isCollapsed={isCollapsed} toggleSidebar={toggleSidebar} />
           </div>
           <div
