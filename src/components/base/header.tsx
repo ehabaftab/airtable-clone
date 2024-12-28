@@ -50,10 +50,10 @@ export const Header = ({ id, user }: BaseInfo) => {
           <div className="flex items-center">
             <input
               type="text"
-              placeholder={data?.name}
+              placeholder={data?.name ?? ""}
               className="ml-1 w-9 bg-transparent text-base font-medium text-gray-200 placeholder-gray-200 outline-none"
               style={{
-                width: `${Math.max(data?.name?.length || 1, 1) * 8}px`,
+                width: `${Math.max(data?.name?.length ?? 1, 1) * 8}px`,
               }}
               onFocus={(e) => (e.target.placeholder = "")}
               onBlur={(e) => {
@@ -64,7 +64,7 @@ export const Header = ({ id, user }: BaseInfo) => {
                 }
               }}
               onInput={(e) => {
-                const placeholderLength = data?.name?.length || 0;
+                const placeholderLength = data?.name?.length ?? 0;
                 const inputLength = (e.target as HTMLInputElement).value.length;
                 const maxLength = Math.max(placeholderLength, inputLength);
                 (e.target as HTMLInputElement).style.width =

@@ -37,20 +37,18 @@ export const Header = ({ toggleSidebar }: SidebarProps) => {
         </div>
       </div>
 
-      <div
+      <button
         aria-label="Search Bar"
-        className="flex h-7 w-72 items-center rounded-full p-1.5 outline outline-1 outline-gray-300"
+        className="flex h-7 w-72 items-center justify-between rounded-full p-1.5 outline outline-1 outline-gray-300 hover:shadow-md"
       >
-        <div className="flex">
+        <div className="flex items-center">
           <CiSearch className="ml-2" />
-          <input
-            type="text"
-            placeholder="Search..."
-            className="bg-transparent pl-1 text-xs text-gray-800 placeholder-gray-400"
-          />
+          <span className="ml-2 text-xs font-light text-gray-500">
+            Search...
+          </span>
         </div>
-        <span className="ml-3 pl-20 text-xs text-gray-400">⌘ K</span>
-      </div>
+        <span className="mr-2 pl-20 text-xs font-light text-gray-400">⌘ K</span>
+      </button>
 
       <div className="flex items-center" aria-label="Right-Section">
         <button className="mr-2 h-6 w-10 rounded-full pl-3 text-gray-600 hover:bg-gray-200">
