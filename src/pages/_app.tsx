@@ -13,9 +13,11 @@ const roboto = Roboto({
 const MyApp: AppType = ({ Component, pageProps }) => {
   return (
     <div className={roboto.className}>
+      {/* <ChakraProvider> */}
       <ClerkProvider {...pageProps}>
         <Component {...pageProps} />
       </ClerkProvider>
+      {/* </ChakraProvider> */}
     </div>
   );
 };

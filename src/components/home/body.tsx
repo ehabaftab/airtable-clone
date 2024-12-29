@@ -13,7 +13,7 @@ const AllBases = () => {
     return <LoadingPage />;
   }
 
-  if (!data) return <div>Something went wrong</div>;
+  if (!data) return <div></div>;
   return data && data.length > 0 ? (
     <div className={`ml-4 mr-10 mt-2 flex flex-wrap gap-4`}>
       {data.map((base) => {

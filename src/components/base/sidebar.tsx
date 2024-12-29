@@ -17,8 +17,6 @@ export const Sidebar = ({ isCollapsed }: SidebarProps) => {
   // const openModal = () => setIsModalOpen(true);
   // const closeModal = () => setIsModalOpen(false);
 
-  const [isHomeCollapsed, setIsHomeCollapsed] = useState(true);
-  const [isWorkspacesCollapsed, setIsWorkspacesCollapsed] = useState(true);
   const { mutate, status } = api.base.create.useMutation({
     onSuccess: (data) => {
       window.location.href = `/base/${data.id}`;

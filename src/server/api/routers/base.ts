@@ -8,7 +8,12 @@ import {
 
 export const baseRouter = createTRPCRouter({
   getAll: publicProcedure.query(async ({ ctx }) => {
+    const authorId = ctx.userId;
+    if (!authorId) {
+      return null;
+    }
     const bases = await ctx.db.base.findMany({
+      where: { authorId: authorId },
       orderBy: { createdAt: "desc" },
     });
 

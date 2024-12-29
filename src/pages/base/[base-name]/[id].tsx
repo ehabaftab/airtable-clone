@@ -4,9 +4,10 @@ import { Header } from "~/components/base/header";
 import { Sidebar } from "~/components/base/sidebar";
 import { useRouter } from "next/router";
 import { useUser } from "@clerk/nextjs";
+import { Table } from "~/components/base/table";
+import { api } from "~/utils/api";
+// import { Body } from "~/components/home/body";
 // import Image from "next/image";
-
-// import { api } from "~/utils/api";
 
 export default function BasePage() {
   const { user } = useUser() as {
@@ -19,6 +20,16 @@ export default function BasePage() {
   const router = useRouter();
   const { id } = router.query;
   const numericId = Number(id);
+  const tables = api.table.getAll.useQuery<
+    {
+      id: number;
+      name: string;
+      createdAt: Date;
+      updatedAt: Date;
+      baseId: number;
+    }[]
+  >({ baseId: numericId });
+  const firstTableId = tables.data?.[0]?.id ?? null;
   return (
     <>
       <Head>
@@ -37,12 +48,14 @@ export default function BasePage() {
           </div>
         </div>
         <div className="flex">
-          <div className="fixed bg-white" style={{ marginTop: "8.25rem" }}>
+          <div className="fixed mt-[8.25rem] bg-white">
             <Sidebar isCollapsed={isCollapsed} toggleSidebar={toggleSidebar} />
           </div>
           <div
-            className={`mt-14 transition-all duration-300 ${isCollapsed ? "ml-20" : "ml-80"}`}
-          ></div>
+            className={`mt-[8.25rem] transition-all duration-300 ${isCollapsed ? "ml-20" : "ml-80"}`}
+          >
+            {firstTableId !== null && <Table tableId={firstTableId} />}
+          </div>
         </div>
       </main>
     </>

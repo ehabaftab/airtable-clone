@@ -1,5 +1,9 @@
 import { baseRouter } from "~/server/api/routers/base";
 import { createCallerFactory, createTRPCRouter } from "~/server/api/trpc";
+import { columnRouter } from "./routers/column";
+import { rowRouter } from "./routers/row";
+import { tableRouter } from "./routers/table";
+import { valueRouter } from "./routers/value";
 
 /**
  * This is the primary router for your server.
@@ -8,6 +12,10 @@ import { createCallerFactory, createTRPCRouter } from "~/server/api/trpc";
  */
 export const appRouter = createTRPCRouter({
   base: baseRouter,
+  table: tableRouter,
+  column: columnRouter,
+  row: rowRouter,
+  value: valueRouter,
 });
 
 // export type definition of API
