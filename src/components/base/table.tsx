@@ -5,67 +5,20 @@ import { LoadingPage } from "../loading";
 import { VscAdd } from "react-icons/vsc";
 
 export const Table = ({ tableId }: { tableId: number }) => {
-  const { mutate, isLoading: isMutating } = api.value.update.useMutation({});
+  const { mutate, isPending: isMutating } = api.value.update.useMutation({});
   const { data, isLoading } = api.table.getTableData.useQuery({ tableId });
 
   // Mutation to add a column to the database
-  const { mutate: addColumnMutate } = api.table.addColumn.useMutation();
-
-  // State for managing columns and data
-  const [columns, setColumns] = useState([]);
-  const [tableData, setTableData] = useState([]);
-
-  // Update columns and data when API data changes
-  useEffect(() => {
-    if (data) {
-      setColumns(data.columns || []);
-      setTableData(data.data || []);
-    }
-  }, [data]);
+  //   const { mutate: addColumnMutate } = api.table.addColumn.useMutation();
 
   const table = useReactTable({
-    data: tableData,
-    columns,
+    data: data?.data ?? [],
+    columns: data?.columns ?? [],
     getCoreRowModel: getCoreRowModel(),
     columnResizeMode: "onChange",
   });
 
   if (isLoading || isMutating) return <LoadingPage />;
-
-  // Add Column Handler
-  const handleAddColumn = () => {
-    const newColumnName = `Column ${columns.length + 1}`;
-
-    // Add column to the database
-    addColumnMutate(
-      { tableId, columnName: newColumnName },
-      {
-        onSuccess: () => {
-          // Update local columns and table data upon success
-          const newColumns = [
-            ...columns,
-            {
-              id: newColumnName,
-              header: newColumnName,
-              accessorKey: newColumnName,
-            },
-          ];
-          setColumns(newColumns);
-
-          const updatedData = tableData.map((row) => ({
-            ...row,
-            [newColumnName]: "", // Default empty value
-          }));
-          setTableData(updatedData);
-
-          console.log(`Column "${newColumnName}" added successfully.`);
-        },
-        onError: (error) => {
-          console.error(`Error adding column: ${error.message}`);
-        },
-      },
-    );
-  };
 
   return (
     <div className="overflow-x-auto">
@@ -91,10 +44,7 @@ export const Table = ({ tableId }: { tableId: number }) => {
                 </th>
               ))}
               {/* Add Column Header */}
-              <th
-                className="border-l border-gray-300 px-4 py-2 text-center font-medium hover:cursor-pointer hover:bg-white"
-                onClick={handleAddColumn}
-              >
+              <th className="border-l border-gray-300 px-4 py-2 text-center font-medium hover:cursor-pointer hover:bg-white">
                 <div
                   className="flex h-full w-full items-center justify-center text-black"
                   title="Add column"
@@ -121,14 +71,6 @@ export const Table = ({ tableId }: { tableId: number }) => {
                     defaultValue={cell.getValue() as string}
                     onBlur={(e) => {
                       const newValue = e.target.value;
-
-                      // Update table data
-                      const updatedData = [...tableData];
-                      const rowIndex = row.index;
-                      const cellId = cell.column.id;
-
-                      updatedData[rowIndex][cellId] = newValue;
-                      setTableData(updatedData);
 
                       mutate(
                         { id: row.original.id as number, value: newValue },

@@ -75,7 +75,7 @@ export const tableRouter = createTRPCRouter({
       });
       return {
         columns: columns.map((column) => ({
-          id: column.id,
+          id: column.id.toString(),
           accessorKey: column.name,
           header: column.name,
         })),

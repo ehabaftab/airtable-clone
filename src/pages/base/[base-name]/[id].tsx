@@ -52,7 +52,7 @@ export default function BasePage() {
             <Sidebar isCollapsed={isCollapsed} toggleSidebar={toggleSidebar} />
           </div>
           <div
-            className={`mt-[8.25rem] transition-all duration-300 ${isCollapsed ? "ml-20" : "ml-80"}`}
+            className={`mt-[8.25rem] transition-all duration-300 ${isCollapsed ? "ml-20" : "ml-64"}`}
           >
             {firstTableId !== null && <Table tableId={firstTableId} />}
           </div>
